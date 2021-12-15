@@ -25,7 +25,7 @@ evaluation studies.
 
 This package can be installed from GitHub with the following command
 
-    remotes::install_github("https://github.com/maxwestphal/SEPM.SIM")
+    remotes::install_github("maxwestphal/SEPM.SIM")
 
 ------------------------------------------------------------------------
 

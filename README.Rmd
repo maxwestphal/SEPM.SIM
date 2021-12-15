@@ -26,7 +26,7 @@ This **R package** implements functions to conduct simulation studies for method
 This package can be installed from GitHub with the following command
 
 ```{r install, eval=FALSE, echo=TRUE}
-remotes::install_github("https://github.com/maxwestphal/SEPM.SIM")
+remotes::install_github("maxwestphal/SEPM.SIM")
 ```
 
 ---
