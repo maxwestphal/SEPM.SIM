@@ -13,9 +13,9 @@ status](https://github.com/maxwestphal/SEPM.SIM/workflows/R-CMD-check/badge.svg)
 
 ## Overview
 
-This R package implements functions to conduct simulation studies for
-methodological comparisons in the context of predictive model evaluation
-studies.
+This **R package** implements functions to conduct simulation studies
+for methodological comparisons in the context of predictive model
+evaluation studies.
 
 **NOTE: This package is no longer maintained!**
 
