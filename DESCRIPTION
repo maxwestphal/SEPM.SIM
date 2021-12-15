@@ -1,0 +1,48 @@
+Package: SEPM.SIM
+Type: Package
+Title: Statistical Evaluation of Prediction Models - Simulation Studies
+Version: 0.3.0
+Authors@R: 
+    person(given = "Max",
+           family = "Westphal",
+           role = c("aut", "cre"),
+           email = "mwestphal@uni-bremen.de",
+           comment = c(ORCID = "0000-0002-8488-758X"))
+Description: This package implements several function to conduct simulation studies to assess the properties of statistical methods for the evaluation of prediction models.
+License: LGPL (>= 3)
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.1.1
+Depends: R (>= 2.10)
+Imports:
+    data.table,
+    Matrix,
+    glmnet,
+    methods,
+    dplyr,
+    magrittr,
+    bindata,
+    gdata,
+    multcomp,
+    MCMCpack,
+    mvtnorm,
+    caret,
+    ranger,
+    rpart,
+    plyr,
+    readr,
+    xgboost,
+    LiblineaR,
+    batchtools,
+    SIMPle (>= 0.3.0),
+    SEPM (>= 0.3.0)
+Suggests: 
+    knitr,
+    rmarkdown,
+    badger,
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
+Remotes: 
+    maxwestphal/SEPM,
+    maxwestphal/SIMPle
+URL: https://github.com/maxwestphal/SEPM.SIM

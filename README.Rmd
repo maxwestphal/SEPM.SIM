@@ -1,0 +1,50 @@
+---
+title: "SEPM.SIM README"
+author: "Max Westphal (mwestphal@uni-bremen.de)"
+output: md_document
+---
+
+# SEPM.SIM: Statistical Evaluation of Prediction Models - Simulation Studies
+
+[![Project Status: Inactive – The project has reached a stable, usable state but is no longer being actively developed; support/maintenance will be provided as time allows.](https://www.repostatus.org/badges/latest/inactive.svg)](https://www.repostatus.org/#inactive)
+`r badger::badge_devel(color="blue")`
+`r badger::badge_cran_release(color="orange")`
+`r badger::badge_github_actions(action="R-CMD-check")`
+
+---
+
+## Overview
+
+This R package implements functions to conduct simulation studies for methodological comparisons in the context of predictive model evaluation studies. 
+
+**NOTE: This package is no longer maintained!**
+
+---
+
+## Installation
+
+This package can be installed from GitHub with the following command
+
+```{r install, eval=FALSE, echo=TRUE}
+remotes::install_github("https://github.com/maxwestphal/SEPM.SIM")
+```
+
+---
+
+## Details
+
+Several simulation studies and real data examples are described at https://maxwestphal.github.io/SEPM.PUB/.
+
+The main goal of this package is to ensure that these numerical experiments can be reproduced.
+
+
+
+
+
+
+
+
+
+
+
+
