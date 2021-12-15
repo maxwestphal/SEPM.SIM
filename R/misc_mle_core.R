@@ -1,7 +1,8 @@
 #' Save MLE simulations instances to disk
 #'
 #' @param instance object generated via \code{sample_mle}
-#' @param id integer, id to append to \code{filename}
+#' @param id integer, id to append to \code{filename}. If set to NA (default), id is retrieved via
+#' id = instance$job$id
 #' @param filename character, base file name
 #' @param folder character, folder to file
 #' @param sep character, path separator
@@ -11,7 +12,7 @@
 #'
 #' @export
 save_instance <- function(instance,
-                          id = instance$job$id,
+                          id = NA,
                           filename = "mle_instance_",
                           folder = "E:\\MLE_SIM\\DATA",
                           sep = "\\",
@@ -19,6 +20,9 @@ save_instance <- function(instance,
                           data = NULL,
                           job = NULL){
   if(write){
+    if(is.na(id)){
+      id <- instance$job$id
+    }
     stopifnot(is.integer(id))
     file <- paste0(filename, id, ".rds")
     saveRDS(instance, file=paste(folder, file, sep=sep))

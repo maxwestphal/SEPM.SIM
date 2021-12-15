@@ -6,7 +6,7 @@
 \usage{
 save_instance(
   instance,
-  id = instance$job$id,
+  id = NA,
   filename = "mle_instance_",
   folder = "E:\\\\MLE_SIM\\\\DATA",
   sep = "\\\\",
@@ -18,7 +18,8 @@ save_instance(
 \arguments{
 \item{instance}{object generated via \code{sample_mle}}
 
-\item{id}{integer, id to append to \code{filename}}
+\item{id}{integer, id to append to \code{filename}. If set to NA (default), id is retrieved via
+id = instance$job$id}
 
 \item{filename}{character, base file name}
 
