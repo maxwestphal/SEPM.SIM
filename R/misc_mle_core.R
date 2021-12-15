@@ -2,9 +2,8 @@
 #'
 #' @param instance object generated via \code{sample_mle}
 #' @param id integer, id to append to \code{filename}
-#' @param filename character, base filename
-#' @param subfolder character, subfolder
-#' @param folder character, main folder
+#' @param filename character, base file name
+#' @param folder character, folder to file
 #' @param sep character, path separator
 #' @param write logical, should instance be saved a (if FALSE, instance is only returned)
 #' @param data NULL (required for batchtools compatibility)
@@ -14,17 +13,15 @@
 save_instance <- function(instance,
                           id = instance$job$id,
                           filename = "mle_instance_",
-                          subfolder = "DATA",
-                          folder = "E:\\MLE_SIM",
+                          folder = "E:\\MLE_SIM\\DATA",
                           sep = "\\",
                           write = TRUE,
                           data = NULL,
                           job = NULL){
   if(write){
     stopifnot(is.integer(id))
-    path <- paste(folder, subfolder, sep=sep)
     file <- paste0(filename, id, ".rds")
-    saveRDS(instance, file=paste(path, file, sep=sep))
+    saveRDS(instance, file=paste(folder, file, sep=sep))
   }
   return(instance)
 }

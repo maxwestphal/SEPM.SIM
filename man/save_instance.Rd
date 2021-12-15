@@ -8,8 +8,7 @@ save_instance(
   instance,
   id = instance$job$id,
   filename = "mle_instance_",
-  subfolder = "DATA",
-  folder = "E:\\\\MLE_SIM",
+  folder = "E:\\\\MLE_SIM\\\\DATA",
   sep = "\\\\",
   write = TRUE,
   data = NULL,
@@ -21,11 +20,9 @@ save_instance(
 
 \item{id}{integer, id to append to \code{filename}}
 
-\item{filename}{character, base filename}
+\item{filename}{character, base file name}
 
-\item{subfolder}{character, subfolder}
-
-\item{folder}{character, main folder}
+\item{folder}{character, folder to file}
 
 \item{sep}{character, path separator}
 
