@@ -144,7 +144,94 @@ postproc_mle_cpe <- function(results, vals = seq(-0.05,0.1,0.01), delta=0){
   return(R)
 }
 
+#' @importFrom dplyr filter
+#' @importFrom stats t.test
+report_results <- function(data,
+                           ep = "final.theta",
+                           sr = c("oracle", "default", "within1SE", "optimalEFP"),
+                           vs = c(4, 3),
+                           ne = c(400, 800),
+                           nl = c(400, 800),
+                           alpha = 0.01,
+                           de = 3,
+                           dd = 3,
+                           dc = 3){
 
+  n.learn <- n.eval <- select.rule <- NULL
+
+  df <- data %>% dplyr::filter(n.eval %in% ne, n.learn %in% nl)
+
+  e <- list()
+  for(r in sr){
+    e[[r]] <- df %>% dplyr::filter(select.rule==r) %>% `[[`(ep)
+  }
+
+  stopifnot(all(diff(sapply(e, length))==0))
+
+  d <- e[[vs[1]]] - e[[vs[2]]]
+  tr <- stats::t.test(d, conf.level = 1-alpha)
+
+  result <- formatC(round(sapply(e, mean), de), digits=de, format="f")
+  result <- c(result,
+              diff = paste0(formatC(round(mean(d),  dd), digits=dd, format="f"), " (",
+                            formatC(round(tr$conf.int[1], dc), digits=dc, format="f"), ", ",
+                            formatC(round(tr$conf.int[2], dc), digits=dc, format="f"), ")"))
+
+  return(result)
+}
+
+#' Summarize simulation study in results table
+#'
+#' @param data data.frame, containing simulation results
+#' @param vars character, list of variables to report
+#' @param rules character vector, selection rules to investigate
+#' @param comp numeric of length 2, which two selection rules should be compared (delta = rules[comp[1]] - rules[comp[2]])
+#' @param NE list, each element is a numeric vector hinting which evaluation sample sizes (n.eval) are considered
+#' @param NL list, each element is a numeric vector hinting which learning sample sizes (n.learn) are considered
+#' @param alpha numeric, significance level of t-test in comparison
+#' @param digits numeric, to which degree should results be rounded
+#'
+#' @return
+#' data.frame with aggregated results
+#' @export
+summarize_results <- function(data,
+                              vars = "final.theta",
+                              rules = c("oracle", "default", "within1SE", "optimalEFP"),
+                              comp = c(4,3),
+                              NE = list(400, 800),
+                              NL = list(c(400, 800)),
+                              alpha = 0.01,
+                              digits = 3){
+
+  nl <- ne <- NULL
+
+  results <- list()
+  j <- 0
+
+  for(ep in vars){
+    for(ie in 1:length(NE)){
+      for(il in 1:length(NL)){
+        j = j+1
+        results[[j]] <-
+          c(variable = ep,
+            nl = paste(NL[[il]], collapse = ", "),
+            ne = paste(NE[[ie]], collapse = ", "),
+            report_results(data = data, ep = ep,
+                           sr = rules, vs = comp,
+                           ne = NE[[ie]], nl = NL[[il]],
+                           de = digits, dd = digits, dc = digits)
+          )
+      }
+    }
+  }
+
+  out <- do.call(rbind, results) %>%
+    as.data.frame() %>%
+    rename(nE = ne, nL = nl) %>%
+    rename("optimalEFP - within1SE"="diff")
+  rownames(out) <- NULL
+  return(out)
+}
 
 
 

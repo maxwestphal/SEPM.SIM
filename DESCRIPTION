@@ -34,6 +34,7 @@ Imports:
     xgboost,
     LiblineaR,
     batchtools,
+    stats,
     SIMPle (>= 0.3.0),
     SEPM (>= 0.3.0)
 Suggests: 
