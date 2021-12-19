@@ -144,7 +144,7 @@ postproc_mle_cpe <- function(results, vals = seq(-0.05,0.1,0.01), delta=0){
   return(R)
 }
 
-#' @importFrom dplyr filter
+#' @importFrom dplyr filter arrange
 #' @importFrom stats t.test
 report_results <- function(data,
                            ep = "final.theta",
@@ -157,13 +157,16 @@ report_results <- function(data,
                            dd = 3,
                            dc = 3){
 
-  n.learn <- n.eval <- select.rule <- NULL
+  n.learn <- n.eval <- load.id <- select.rule <- NULL
 
   df <- data %>% dplyr::filter(n.eval %in% ne, n.learn %in% nl)
 
   e <- list()
   for(r in sr){
-    e[[r]] <- df %>% dplyr::filter(select.rule==r) %>% `[[`(ep)
+    e[[r]] <- df %>%
+      dplyr::filter(select.rule==r) %>%
+      dplyr::arrange(n.learn, n.eval, load.id) %>%
+      `[[`(ep)
   }
 
   stopifnot(all(diff(sapply(e, length))==0))
@@ -197,9 +200,9 @@ report_results <- function(data,
 summarize_results <- function(data,
                               vars = "final.theta",
                               rules = c("oracle", "default", "within1SE", "optimalEFP"),
-                              comp = c(4,3),
-                              NE = list(400, 800),
+                              comp = c(4, 3),
                               NL = list(c(400, 800)),
+                              NE = list(400, 800),
                               alpha = 0.01,
                               digits = 3){
 
@@ -225,11 +228,13 @@ summarize_results <- function(data,
     }
   }
 
+  ## compile output
   out <- do.call(rbind, results) %>%
     as.data.frame() %>%
-    rename(nE = ne, nL = nl) %>%
-    rename("optimalEFP - within1SE"="diff")
+    rename(n.learn = nl, n.eval = ne)
+  names(out)[ncol(out)] <- paste0(rules[comp[1]], " - ", rules[comp[2]])
   rownames(out) <- NULL
+
   return(out)
 }
 
